@@ -8,7 +8,7 @@
 
 CarCare is an enterprise desktop management solution built with **Java Swing** and **MySQL**, designed to streamline day-to-day automotive workshop operations, manage active vehicle service queues, automate customer billing, and schedule repair appointments.
 
-Developed by **Muhammad** during a Software Engineering Internship at **ColonNext**.
+Developed by **Muhammad** during a Software Engineering Internship at **KolonX**.
 
 ---
 
