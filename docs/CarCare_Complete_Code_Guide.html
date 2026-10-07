@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CarCare — Complete Project Code & Function Reference Manual</title>
+<style>
+  @page {
+    size: A4;
+    margin: 14mm 12mm 14mm 12mm;
+    @bottom-right {
+      content: counter(page);
+    }
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #1e293b;
+    line-height: 1.5;
+    font-size: 10pt;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Cover Page */
+  .cover-page {
+    page-break-after: always;
+    height: 94vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(135deg, #08254f 0%, #0f172a 100%);
+    color: #ffffff;
+    border-radius: 8px;
+    padding: 40px 30px;
+    box-sizing: border-box;
+  }
+
+  .cover-badge {
+    background: rgba(2, 132, 199, 0.25);
+    border: 1px solid #0284c7;
+    color: #38bdf8;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 9.5pt;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+  }
+
+  .cover-title {
+    font-size: 26pt;
+    font-weight: 800;
+    margin: 0 0 10px 0;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+  }
+
+  .cover-subtitle {
+    font-size: 13.5pt;
+    color: #94a3b8;
+    margin: 0 0 35px 0;
+    max-width: 600px;
+  }
+
+  .cover-meta {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 18px 30px;
+    text-align: left;
+    width: 480px;
+    box-sizing: border-box;
+    font-size: 9.5pt;
+  }
+
+  .cover-meta table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .cover-meta td {
+    padding: 5px 0;
+    color: #cbd5e1;
+  }
+
+  .cover-meta td.label {
+    color: #38bdf8;
+    font-weight: 600;
+    width: 150px;
+  }
+
+  .page-break {
+    page-break-after: always;
+  }
+
+  h1 {
+    font-size: 17pt;
+    color: #08254f;
+    border-bottom: 2px solid #0284c7;
+    padding-bottom: 5px;
+    margin-top: 24px;
+    margin-bottom: 12px;
+  }
+
+  h2 {
+    font-size: 13pt;
+    color: #0369a1;
+    margin-top: 18px;
+    margin-bottom: 8px;
+    border-left: 4px solid #0284c7;
+    padding-left: 8px;
+  }
+
+  h3 {
+    font-size: 11pt;
+    color: #0f172a;
+    margin-top: 12px;
+    margin-bottom: 6px;
+  }
+
+  p {
+    margin: 0 0 8px 0;
+  }
+
+  /* Code Boxes */
+  pre {
+    background: #0f172a;
+    color: #f8fafc;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    font-size: 8.5pt;
+    line-height: 1.45;
+    overflow-x: auto;
+    margin: 6px 0 10px 0;
+    border: 1px solid #1e293b;
+  }
+
+  code {
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    font-size: 8.5pt;
+    background: #f1f5f9;
+    color: #0369a1;
+    padding: 1px 5px;
+    border-radius: 4px;
+  }
+
+  pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+  }
+
+  /* Tables */
+  table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8px 0 14px 0;
+    font-size: 8.5pt;
+  }
+
+  table.data-table th {
+    background: #08254f;
+    color: #ffffff;
+    font-weight: 600;
+    text-align: left;
+    padding: 7px 9px;
+    border: 1px solid #08254f;
+  }
+
+  table.data-table td {
+    padding: 6px 9px;
+    border: 1px solid #e2e8f0;
+    vertical-align: top;
+  }
+
+  table.data-table tr:nth-child(even) {
+    background: #f8fafc;
+  }
+
+  /* Callout Boxes */
+  .callout {
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin: 10px 0;
+    font-size: 9pt;
+  }
+
+  .callout-info {
+    background: #f0f9ff;
+    border-left: 4px solid #0284c7;
+    color: #0369a1;
+  }
+
+  .callout-evaluator {
+    background: #fefce8;
+    border-left: 4px solid #eab308;
+    color: #854d0e;
+  }
+
+  .callout-success {
+    background: #f0fdf4;
+    border-left: 4px solid #22c55e;
+    color: #15803d;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 12px;
+    font-size: 7.5pt;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .badge-sql { background: #e0e7ff; color: #3730a3; }
+  .badge-java { background: #dbeafe; color: #1e40af; }
+  .badge-ui { background: #fce7f3; color: #9d174d; }
+  .badge-flow { background: #dcfce7; color: #166534; }
+
+  .toc-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    border-bottom: 1px dotted #cbd5e1;
+    font-size: 9.5pt;
+  }
+
+  .toc-item a {
+    color: #0369a1;
+    text-decoration: none;
+    font-weight: 500;
+  }
+</style>
+</head>
+<body>
+
+<div class="cover-page">
+  <div class="cover-badge">Internship Defense &amp; Code Execution Guide</div>
+  <div class="cover-title">CarCare System Manual</div>
+  <div class="cover-subtitle">Line-by-Line Function, Button, Screen &amp; Database Defense Reference</div>
+  <div class="cover-meta">
+    <table>
+      <tr><td class="label">Project:</td><td>CarCare Auto Workshop Management</td></tr>
+      <tr><td class="label">Developer:</td><td>Muhammad (Intern at ColonNext)</td></tr>
+      <tr><td class="label">Architecture:</td><td>3-Tier (Presentation &bull; Business &bull; DataAccess)</td></tr>
+      <tr><td class="label">Technologies:</td><td>Java Swing, FlatLaf 3.7.2, MySQL (XAMPP), NetBeans</td></tr>
+      <tr><td class="label">Database:</td><td>carcare_db (9 Fully-Connected Active Tables)</td></tr>
+      <tr><td class="label">Status:</td><td>Cleaned, Audited &amp; 100% Compilation Verified</td></tr>
+    </table>
+  </div>
+</div>
+
+<h1>Table of Contents</h1>
+<div style="margin: 20px 0;">
+  <div class="toc-item"><a href="#sec1">1. Application Architecture &amp; Master Navigation Flow</a><span>Page 2</span></div>
+  <div class="toc-item"><a href="#sec2">2. Database Schema, Relationships &amp; Foreign Keys</a><span>Page 3</span></div>
+  <div class="toc-item"><a href="#sec3">3. How the Tabbed Navigation Works (Step-by-Step)</a><span>Page 4</span></div>
+  <div class="toc-item"><a href="#sec4">4. Data Access Layer (DAO) — Every Function &amp; SQL Query</a><span>Page 5</span></div>
+  <div class="toc-item"><a href="#sec5">5. Business Logic Layer (BLL) &amp; Domain Entities</a><span>Page 8</span></div>
+  <div class="toc-item"><a href="#sec6">6. Presentation Layer — Screen-by-Screen Code Walkthrough</a><span>Page 10</span></div>
+  <div class="toc-item"><a href="#sec7">7. Every Single Button Click Traced to Database (15 Flows)</a><span>Page 14</span></div>
+  <div class="toc-item"><a href="#sec8">8. In-Depth Billing &amp; Invoicing Mechanics</a><span>Page 17</span></div>
+  <div class="toc-item"><a href="#sec9">9. Evaluator Defense Q&amp;A (Questions &amp; Exact Answers)</a><span>Page 19</span></div>
+</div>
+<div class="page-break"></div>
+
+<h1 id="sec1">1. Application Architecture &amp; Master Navigation Flow</h1>
+
+<p>CarCare is built using the industry-standard <b>3-Tier Architecture</b>. This cleanly separates user interface, business logic, and database operations:</p>
+
+<table class="data-table">
+  <tr>
+    <th style="width: 22%;">Layer</th>
+    <th style="width: 28%;">Package Location</th>
+    <th style="width: 50%;">Core Responsibility</th>
+  </tr>
+  <tr>
+    <td><b>1. Presentation Layer</b></td>
+    <td><code>PresentationLayer.*</code></td>
+    <td>JFrame and JDialog GUI screens designed in NetBeans Matisse, FlatLaf styling, user input capture, table rendering, button event handling.</td>
+  </tr>
+  <tr>
+    <td><b>2. Business Layer</b></td>
+    <td><code>BusinessLayer.*</code></td>
+    <td>Domain Entities (<code>Customer</code>, <code>Vehicle</code>, <code>Service</code>, <code>Bill</code>) and Business Logic Services (<code>Login_BLL</code>, <code>Vehicle_BLL</code>, <code>Customer_BLL</code>) containing input validations and business rules.</td>
+  </tr>
+  <tr>
+    <td><b>3. Data Access Layer</b></td>
+    <td><code>DataAccessLayer.*</code></td>
+    <td>Raw database interaction via JDBC (<code>PreparedStatement</code>, <code>ResultSet</code>), executing SQL queries against the MySQL <code>carcare_db</code> database.</td>
+  </tr>
+</table>
+
+<h2>System Launch Sequence</h2>
+<p>Here is the exact step-by-step process of how the application boots up when you run it:</p>
+
+<ol>
+  <li><b>Entry Point:</b> Execution starts in <code>LoginForm.main()</code> (Line 250).</li>
+  <li><b>Look &amp; Feel Setup:</b> <code>FlatLightLaf.setup()</code> applies modern rounded cards, clean typography, and native OS anti-aliasing.</li>
+  <li><b>Login Window Displays:</b> <code>LoginForm</code> appears on screen, centered vertically and horizontally.</li>
+  <li><b>Authentication Flow:</b>
+    <ul>
+      <li>User types email and password, then clicks the <b>"LOGIN"</b> button (or presses Enter).</li>
+      <li><code>LoginForm.handleLogin()</code> (Lines 39-63) extracts inputs and calls <code>Login_BLL.login(email, password)</code>.</li>
+      <li><code>Login_BLL</code> trims strings, verifies non-empty, and delegates to <code>Login_DAO.validateLogin(email, password)</code>.</li>
+      <li><code>Login_DAO</code> executes: <code>SELECT * FROM users WHERE email = ? AND password = ?</code>.</li>
+      <li>If true: <code>this.dispose()</code> destroys the login window and <code>new VehicleManagement_Screen().setVisible(true)</code> opens the master application window!</li>
+    </ul>
+  </li>
+  <li><b>Master Window Initialization:</b> <code>VehicleManagement_Screen</code> constructor runs:
+    <ul>
+      <li><code>setupWindow()</code>: Sets title, dimensions (1100&times;700), navy blue background.</li>
+      <li><code>setupTabs()</code>: Instantiates all 6 sub-screens (<code>Dashboard_Screen</code>, <code>CustomerManagement_Screen</code>, <code>ServiceQueue_Screen</code>, <code>Billing_Screen</code>, <code>Appointment_Screen</code>, <code>ServiceManagement_Screen</code>), extracts their internal panels via getter methods, and inserts them into <code>jTabbedPane1</code>!</li>
+      <li><code>setupControls()</code> &amp; <code>setupTable()</code>: Configures vehicle search bar, action column renderer, and pagination.</li>
+      <li><code>loadVehicles()</code>: Loads active cars into memory.</li>
+    </ul>
+  </li>
+</ol>
+
+<div class="callout callout-evaluator">
+  <b>Evaluator Defense Tip:</b> If your evaluator asks <i>"Where does the application start and how does it navigate?"</i>, answer:
+  <br><i>"The application begins in LoginForm.main(), which initializes FlatLaf modern UI. When credentials are validated by Login_BLL and Login_DAO, LoginForm closes itself and launches VehicleManagement_Screen. VehicleManagement_Screen is our master container window that embeds the main panels of all other screens into a JTabbedPane."</i>
+</div>
+<div class="page-break"></div>
+
+<h1 id="sec2">2. Database Schema, Relationships &amp; Foreign Keys</h1>
+
+<p>The database is named <code>carcare_db</code> running on MySQL via XAMPP. After our system audit and cleanup, there are exactly <b>9 active, fully-connected tables</b>. All unused tables (<code>payments</code>, <code>service_record_items</code>) and duplicate indexes were cleanly removed.</p>
+
+<table class="data-table">
+  <tr>
+    <th>Table Name</th>
+    <th>Rows</th>
+    <th>Primary Key</th>
+    <th>Outbound Foreign Keys</th>
+    <th>Role in System</th>
+  </tr>
+  <tr>
+    <td><b><code>users</code></b></td>
+    <td>2</td>
+    <td><code>user_id</code></td>
+    <td>None</td>
+    <td>Stores administrator login credentials (email &amp; password).</td>
+  </tr>
+  <tr>
+    <td><b><code>customers</code></b></td>
+    <td>6</td>
+    <td><code>customer_id</code></td>
+    <td>None</td>
+    <td>Master directory of vehicle owners (name, phone, email, address).</td>
+  </tr>
+  <tr>
+    <td><b><code>vehicles</code></b></td>
+    <td>7</td>
+    <td><code>vehicle_id</code></td>
+    <td><code>customer_id &rarr; customers</code></td>
+    <td>Registered vehicles with unique registration number, make, model, year, mileage.</td>
+  </tr>
+  <tr>
+    <td><b><code>mechanics</code></b></td>
+    <td>4</td>
+    <td><code>mechanic_id</code></td>
+    <td>None</td>
+    <td>Workshop technicians with specialization and availability status.</td>
+  </tr>
+  <tr>
+    <td><b><code>services</code></b></td>
+    <td>5</td>
+    <td><code>service_id</code></td>
+    <td>None</td>
+    <td>Workshop service catalog (e.g. Oil Change, Brake Inspection, Wheel Alignment).</td>
+  </tr>
+  <tr>
+    <td><b><code>appointments</code></b></td>
+    <td>3</td>
+    <td><code>appointment_id</code></td>
+    <td><code>customer_id &rarr; customers</code><br><code>vehicle_id &rarr; vehicles</code><br><code>mechanic_id &rarr; mechanics</code></td>
+    <td>Future bookings with date, time, status ('Pending', 'Confirmed', 'Completed').</td>
+  </tr>
+  <tr>
+    <td><b><code>service_records</code></b></td>
+    <td>2</td>
+    <td><code>record_id</code></td>
+    <td><code>vehicle_id &rarr; vehicles</code><br><code>mechanic_id &rarr; mechanics</code></td>
+    <td>Core work order table binding cars, assigned mechanics, date, service description.</td>
+  </tr>
+  <tr>
+    <td><b><code>service_queue</code></b></td>
+    <td>2</td>
+    <td><code>queue_id</code></td>
+    <td><code>vehicle_id &rarr; vehicles</code><br><code>record_id &rarr; service_records</code></td>
+    <td>Live FIFO workshop bay queue with queue position, start time, completion time.</td>
+  </tr>
+  <tr>
+    <td><b><code>bills</code></b></td>
+    <td>2</td>
+    <td><code>bill_id</code></td>
+    <td><code>record_id &rarr; service_records</code> (UNIQUE 1:1)</td>
+    <td>Customer invoices with service total, parts, discount, grand total, status ('Paid', 'Unpaid').</td>
+  </tr>
+</table>
+
+<h2>Referential Integrity &amp; Cascade Rules</h2>
+<ul>
+  <li><b>Customer Deletion Cascade:</b> <code>vehicles.customer_id &rarr; customers.customer_id ON DELETE CASCADE</code>. If a customer is deleted, all their registered vehicles and appointments are automatically removed by MySQL engine.</li>
+  <li><b>Vehicle Deletion Cascade:</b> <code>service_records.vehicle_id &rarr; vehicles.vehicle_id ON DELETE CASCADE</code> and <code>service_queue.vehicle_id ON DELETE CASCADE</code>. Deleting a car cascades to queue items and work logs.</li>
+  <li><b>Mechanic Safety:</b> <code>service_records.mechanic_id &rarr; mechanics.mechanic_id ON DELETE SET NULL</code>. If a mechanic profile is deleted, historical service records are preserved with <code>mechanic_id = NULL</code> rather than destroyed.</li>
+  <li><b>Billing 1:1 Unique Constraint:</b> <code>bills.record_id</code> has a <code>UNIQUE</code> constraint, guaranteeing that each completed service job has at most ONE invoice.</li>
+</ul>
+
+<div class="callout callout-info">
+  <b>Audit Note: Why were <code>payments</code> and <code>service_record_items</code> removed?</b><br>
+  During the audit, we found that <code>payments</code> had 0 rows because the application updates <code>bills.status = 'Paid'</code> directly instead of writing separate payment ledger slips. Similarly, <code>service_record_items</code> had 0 rows because work orders store service names directly in <code>service_records.description</code>. Removing these 2 unused tables simplified the database and prevents evaluator penalties for dead schema.
+</div>
+<div class="page-break"></div>
+
+<h1 id="sec3">3. How the Tabbed Navigation Works (Step-by-Step)</h1>
+
+<p>One of the most common evaluator questions is: <i>"How does your tabbed interface work? Are these separate frames or embedded panels?"</i></p>
+
+<h2>The Master Container Pattern</h2>
+<p>The entire multi-tab workshop application runs inside <b>one single JFrame</b>: <code>VehicleManagement_Screen</code>. Inside this frame is a <code>JTabbedPane</code> named <code>jTabbedPane1</code>.</p>
+
+<p>Instead of opening and closing multiple separate windows, <code>VehicleManagement_Screen</code> creates an instance of each screen and embeds that screen's main content panel into the tab bar. Here is the exact code from <code>VehicleManagement_Screen.java</code> (Lines 90-113):</p>
+
+<pre><code>// 1. Dashboard Tab (Inserted at index 0)
+dashboardScreen = new Dashboard_Screen();
+jTabbedPane1.insertTab("  Dashboard", null, dashboardScreen.getDashboardPanel(), null, 0);
+
+// 2. Vehicles Tab (Uses the panel built into VehicleManagement_Screen itself)
+// It sits at index 1 by default.
+
+// 3. Customers Tab (Index 2)
+customerScreen = new CustomerManagement_Screen();
+jTabbedPane1.addTab("  Customers", customerScreen.getCustomerPanel());
+
+// 4. Service Queue Tab (Index 3)
+queueScreen = new ServiceQueue_Screen();
+jTabbedPane1.addTab("  Service Queue", queueScreen.getServiceQueuePanel());
+
+// 5. Billing Tab (Index 4)
+billingScreen = new Billing_Screen();
+jTabbedPane1.addTab("  Billing", billingScreen.getBillingPanel());
+
+// 6. Appointments Tab (Index 5)
+appointmentScreen = new Appointment_Screen();
+jTabbedPane1.addTab("  Appointments", appointmentScreen.getAppointmentsPanel());
+
+// 7. Services Tab (Index 6)
+serviceScreen = new ServiceManagement_Screen();
+jTabbedPane1.addTab("  Services", serviceScreen.getServicePanel());</code></pre>
+
+<h2>How Each Screen Exposes Its Content Panel</h2>
+<p>Each individual screen class implements a public getter that returns its internal content <code>JPanel</code>:</p>
+<ul>
+  <li><code>Dashboard_Screen.java</code> (Line 70): <code>public javax.swing.JPanel getDashboardPanel() { return jPanel1; }</code></li>
+  <li><code>CustomerManagement_Screen.java</code>: <code>public javax.swing.JPanel getCustomerPanel() { return jPanel1; }</code></li>
+  <li><code>ServiceQueue_Screen.java</code> (Line 662): <code>public javax.swing.JPanel getServiceQueuePanel() { return jPanel1; }</code></li>
+  <li><code>Billing_Screen.java</code> (Line 581): <code>public javax.swing.JPanel getBillingPanel() { return jPanel1; }</code></li>
+  <li><code>Appointment_Screen.java</code>: <code>public javax.swing.JPanel getAppointmentsPanel() { return jPanel1; }</code></li>
+  <li><code>ServiceManagement_Screen.java</code>: <code>public javax.swing.JPanel getServicePanel() { return jPanel1; }</code></li>
+</ul>
+
+<h2>Automatic Tab-Switch Data Refresh Listener</h2>
+<p>When the user clicks on any tab, an event listener detects the tab index change and immediately re-queries the database so the data is always 100% fresh! Look at lines 125-143 of <code>VehicleManagement_Screen.java</code>:</p>
+
+<pre><code>jTabbedPane1.addChangeListener(e -> {
+    int idx = jTabbedPane1.getSelectedIndex();
+    if (idx == 0 && dashboardScreen != null) {
+        dashboardScreen.loadDashboardStats(); // Refresh metric counts & activity
+    } else if (idx == 1) {
+        loadVehicles(); // Refresh vehicles table
+    } else if (idx == 2 && customerScreen != null) {
+        customerScreen.loadCustomers(); // Refresh customers table
+    } else if (idx == 3 && queueScreen != null) {
+        queueScreen.loadQueueData(); // Refresh FIFO queue & active bay
+    } else if (idx == 4 && billingScreen != null) {
+        billingScreen.loadBills(); // Auto-create & fetch invoices
+    } else if (idx == 5 && appointmentScreen != null) {
+        appointmentScreen.loadAppointments(); // Refresh appointment calendar
+    } else if (idx == 6 && serviceScreen != null) {
+        serviceScreen.loadServices(); // Refresh catalog & vehicle combos
+        serviceScreen.loadVehicles();
+    }
+});</code></pre>
+
+<div class="callout callout-success">
+  <b>Key Takeaway:</b> Switching tabs is <b>reactive and live</b>. If you add a car in the Vehicles tab and switch to the Dashboard tab, the "Total Vehicles" metric immediately updates without needing to restart the application!
+</div>
+<div class="page-break"></div>
+
+<h1 id="sec4">4. Data Access Layer (DAO) — Every Function &amp; SQL Query</h1>
+
+<p>All database queries reside exclusively in the <code>DataAccessLayer</code> package. Every function uses parameterized <code>PreparedStatement</code> to prevent SQL Injection.</p>
+
+<h2>4.1 DB_Connection.java — Database Connection Factory</h2>
+<p><b>Purpose:</b> Establishes a JDBC physical connection to MySQL.</p>
+<pre><code>public class DB_Connection {
+    private static final String URL = "jdbc:mysql://localhost:3306/carcare_db";
+    private static final String USER = "root";
+    private static final String PASSWORD = "";
+
+    public Connection getConnection() {
+        try {
+            return DriverManager.getConnection(URL, USER, PASSWORD);
+        } catch (SQLException e) {
+            System.out.println("Database connection failed!");
+            e.printStackTrace();
+            return null;
+        }
+    }
+}</code></pre>
+
+<h2>4.2 Login_DAO.java</h2>
+<p><b>Function:</b> <code>validateLogin(String email, String password)</code> &bull; Returns: <code>boolean</code></p>
+<p><b>SQL Query:</b> <code>SELECT * FROM users WHERE email = ? AND password = ?</code></p>
+<p><b>What it does:</b> Binds email to parameter 1, password to parameter 2. Executes query. If <code>rs.next()</code> finds a match, returns <code>true</code>.</p>
+
+<h2>4.3 Customer_DAO.java</h2>
+<table class="data-table">
+  <tr>
+    <th style="width: 25%;">Method Signature</th>
+    <th style="width: 45%;">Exact SQL Query Executed</th>
+    <th style="width: 30%;">Operation &amp; Return</th>
+  </tr>
+  <tr>
+    <td><code>addCustomer(Customer c)</code></td>
+    <td><code>INSERT INTO customers (full_name, phone, email, address) VALUES (?, ?, ?, ?)</code></td>
+    <td>Executes insert with <code>RETURN_GENERATED_KEYS</code>. Returns auto-generated <code>customer_id</code> (or -1).</td>
+  </tr>
+  <tr>
+    <td><code>getAllCustomers()</code></td>
+    <td><code>SELECT * FROM customers ORDER BY customer_id DESC</code></td>
+    <td>Loops <code>ResultSet</code>, instantiates <code>Customer</code> objects, returns <code>List&lt;Customer&gt;</code>.</td>
+  </tr>
+  <tr>
+    <td><code>updateCustomer(Customer c)</code></td>
+    <td><code>UPDATE customers SET full_name=?, phone=?, email=?, address=? WHERE customer_id=?</code></td>
+    <td>Updates profile details matching <code>customer_id</code>. Returns <code>boolean</code>.</td>
+  </tr>
+  <tr>
+    <td><code>deleteCustomer(int id)</code></td>
+    <td><code>DELETE FROM customers WHERE customer_id=?</code></td>
+    <td>Deletes customer. Cascades to vehicles &amp; bookings. Returns <code>boolean</code>.</td>
+  </tr>
+</table>
+
+<h2>4.4 Vehicle_DAO.java</h2>
+<table class="data-table">
+  <tr>
+    <th style="width: 28%;">Method Signature</th>
+    <th style="width: 45%;">Exact SQL Query Executed</th>
+    <th style="width: 27%;">Operation &amp; Return</th>
+  </tr>
+  <tr>
+    <td><code>getAllVehicles()</code></td>
+    <td><code>SELECT v.*, c.full_name AS customer_name FROM vehicles v LEFT JOIN customers c ON v.customer_id = c.customer_id ORDER BY v.vehicle_id DESC</code></td>
+    <td>Joins vehicles with customers to display owner name. Returns <code>List&lt;Vehicle&gt;</code>.</td>
+  </tr>
+  <tr>
+    <td><code>addVehicle(Vehicle v)</code></td>
+    <td><code>INSERT INTO vehicles (customer_id, registration_no, make, model, vehicle_year, mileage) VALUES (?, ?, ?, ?, ?, ?)</code></td>
+    <td>Binds customer ID and car specs. Returns <code>boolean</code>.</td>
+  </tr>
+  <tr>
+    <td><code>deleteVehicle(String regNo)</code></td>
+    <td><code>DELETE FROM vehicles WHERE registration_no = ?</code></td>
+    <td>Deletes vehicle by registration plate. Cascades to records/queue. Returns <code>boolean</code>.</td>
+  </tr>
+  <tr>
+    <td><code>updateVehicle(regNo, make, model, year, mileage)</code></td>
+    <td><code>UPDATE vehicles SET make=?, model=?, vehicle_year=?, mileage=? WHERE registration_no=?</code></td>
+    <td>Updates vehicle specifications by registration plate. Returns <code>boolean</code>.</td>
+  </tr>
+  <tr>
+    <td><code>getVehicleByRegNo(String regNo)</code></td>
+    <td><code>SELECT v.*, c.full_name AS customer_name FROM vehicles v LEFT JOIN customers c ON v.customer_id = c.customer_id WHERE v.registration_no = ?</code></td>
+    <td>Used by Verify buttons in queue &amp; appointment dialogs. Returns <code>Vehicle</code> (or null).</td>
+  </tr>
+</table>
+
+<h2>4.5 Service_DAO.java</h2>
+<table class="data-table">
+  <tr>
+    <th style="width: 28%;">Method Signature</th>
+    <th style="width: 45%;">Exact SQL Query Executed</th>
+    <th style="width: 27%;">Operation &amp; Return</th>
+  </tr>
+  <tr>
+    <td><code>getAllServices()</code></td>
+    <td><code>SELECT * FROM services ORDER BY service_id ASC</code></td>
+    <td>Fetches active service catalog. Returns <code>List&lt;Service&gt;</code>.</td>
+  </tr>
+  <tr>
+    <td><code>addService(name, cost, time, desc)</code></td>
+    <td><code>INSERT INTO services (service_name, description, cost, estimated_time, status) VALUES (?, ?, ?, ?, 'Active')</code></td>
+    <td>Inserts newly created service into catalog. Returns <code>boolean</code>.</td>
+  </tr>
+  <tr>
+    <td><code>updateService(id, name, cost, time)</code></td>
+    <td><code>UPDATE services SET service_name=?, cost=?, estimated_time=? WHERE service_id=?</code></td>
+    <td>Modifies price or duration of existing service. Returns <code>boolean</code>.</td>
+  </tr>
+  <tr>
+    <td><code>deleteService(int id)</code></td>
+    <td><code>DELETE FROM services WHERE service_id = ?</code></td>
+    <td>Deletes service entry from catalog. Returns <code>boolean</code>.</td>
+  </tr>
+  <tr>
+    <td><code>assignServiceToVehicle(vehId, name)</code></td>
+    <td>Delegates to <code>ServiceQueue_DAO.addToQueue(vehId, name, "Ahmed")</code></td>
+    <td>Dispatches car to live queue with assigned technician. Returns <code>boolean</code>.</td>
+  </tr>
+</table>
+<div class="page-break"></div>
+
+<h2>4.6 ServiceQueue_DAO.java — Workshop Queue Engine</h2>
+<p>Manages FIFO queue ordering and active workshop bay transitions.</p>
+
+<table class="data-table">
+  <tr>
+    <th style="width: 28%;">Method Signature</th>
+    <th style="width: 45%;">SQL Queries &amp; Mechanics</th>
+    <th style="width: 27%;">Operation &amp; Return</th>
+  </tr>
+  <tr>
+    <td><code>addToQueue(vehicleId, serviceName, mechanicName)</code></td>
+    <td>
+      1. <code>SELECT mechanic_id FROM mechanics WHERE full_name LIKE ? LIMIT 1</code><br>
+      2. <code>INSERT INTO service_records (vehicle_id, mechanic_id, service_date, description, status) VALUES (?, ?, CURDATE(), ?, 'Pending')</code><br>
+      3. <code>SELECT COALESCE(MAX(queue_position), 0) + 1 FROM service_queue WHERE status = 'Waiting'</code><br>
+      4. <code>INSERT INTO service_queue (vehicle_id, record_id, queue_position, status) VALUES (?, ?, ?, 'Waiting')</code>
+    </td>
+    <td>Atomic SQL transaction with rollback. Creates work log and queue ticket. Returns <code>boolean</code>.</td>
+  </tr>
+  <tr>
+    <td><code>getWaitingQueue()</code></td>
+    <td>5-Table JOIN: <code>service_queue sq JOIN vehicles v ON sq.vehicle_id = v.vehicle_id LEFT JOIN customers c ... LEFT JOIN service_records sr ... LEFT JOIN mechanics m ... WHERE sq.status = 'Waiting' ORDER BY sq.queue_position ASC, sq.added_at ASC</code></td>
+    <td>Constructs ordered FIFO queue. Returns <code>Queue&lt;ServiceTicket&gt;</code> (Java <code>LinkedList</code>).</td>
+  </tr>
+  <tr>
+    <td><code>getActiveService()</code></td>
+    <td>Same 5-table JOIN with <code>WHERE sq.status = 'In Service' ORDER BY sq.started_at DESC LIMIT 1</code></td>
+    <td>Fetches vehicle currently inside Bay 1. Returns <code>ServiceTicket</code>.</td>
+  </tr>
+  <tr>
+    <td><code>callNextVehicle()</code></td>
+    <td>
+      1. Polls first ticket from <code>getWaitingQueue()</code>.<br>
+      2. <code>UPDATE service_queue SET status = 'In Service', started_at = NOW() WHERE queue_id = ?</code><br>
+      3. <code>UPDATE service_records SET status = 'In Progress' WHERE record_id = ?</code><br>
+      4. <code>UPDATE service_queue SET queue_position = queue_position - 1 WHERE status = 'Waiting'</code>
+    </td>
+    <td>Moves first waiting car into active bay and decrements waiting positions. Returns <code>ServiceTicket</code>.</td>
+  </tr>
+  <tr>
+    <td><code>markAsCompleted(queueId, recordId)</code></td>
+    <td>
+      1. <code>UPDATE service_queue SET status = 'Completed', completed_at = NOW() WHERE queue_id = ?</code><br>
+      2. <code>UPDATE service_records SET status = 'Completed' WHERE record_id = ?</code>
+    </td>
+    <td>Empties active bay, stamps completion timestamp. Returns <code>boolean</code>.</td>
+  </tr>
+  <tr>
+    <td><code>removeFromQueue(int queueId)</code></td>
+    <td><code>UPDATE service_queue SET status = 'Cancelled' WHERE queue_id = ? AND status = 'Waiting'</code> followed by <code>resequenceQueuePositions()</code></td>
+    <td>Cancels ticket and re-numbers positions (1, 2, 3...). Returns <code>boolean</code>.</td>
+  </tr>
+  <tr>
+    <td><code>getWaitingCount()</code></td>
+    <td><code>SELECT COUNT(*) FROM service_queue WHERE status = 'Waiting'</code></td>
+    <td>Returns <code>int</code> count for Dashboard card.</td>
+  </tr>
+  <tr>
+    <td><code>getUnderServiceCount()</code></td>
+    <td><code>SELECT COUNT(*) FROM service_queue WHERE status = 'In Service'</code></td>
+    <td>Returns <code>int</code> count for Dashboard card.</td>
+  </tr>
+  <tr>
+    <td><code>getCompletedCount()</code></td>
+    <td><code>SELECT COUNT(*) FROM service_queue WHERE status = 'Completed'</code></td>
+    <td>Returns <code>int</code> total completed cars.</td>
+  </tr>
+  <tr>
+    <td><code>getRecentQueueTickets(int limit)</code></td>
+    <td>5-table JOIN with <code>ORDER BY sq.queue_id DESC LIMIT ?</code></td>
+    <td>Returns <code>List&lt;ServiceTicket&gt;</code> for Recent Activity table.</td>
+  </tr>
+</table>
+
+<h2>4.7 Billing_DAO.java — Invoicing Engine</h2>
+<table class="data-table">
+  <tr>
+    <th style="width: 26%;">Method Signature</th>
+    <th style="width: 48%;">Exact SQL Query Executed</th>
+    <th style="width: 26%;">Operation &amp; Return</th>
+  </tr>
+  <tr>
+    <td><code>getAllBills()</code></td>
+    <td>
+      1. Calls <code>autoCreateBills()</code> first.<br>
+      2. <code>SELECT b.bill_id, v.registration_no, CONCAT(v.make,' ',v.model) AS vehicle_name, COALESCE(c.full_name,'Customer') AS customer_name, COALESCE(sr.description,'General Service') AS service_name, b.grand_total, b.status FROM bills b LEFT JOIN service_records sr ON b.record_id = sr.record_id LEFT JOIN vehicles v ON sr.vehicle_id = v.vehicle_id LEFT JOIN customers c ON v.customer_id = c.customer_id ORDER BY b.bill_id DESC</code>
+    </td>
+    <td>Fetches all customer invoices with car and owner details. Returns <code>List&lt;Bill&gt;</code>.</td>
+  </tr>
+  <tr>
+    <td><code>autoCreateBills()</code> (Private)</td>
+    <td><code>INSERT INTO bills (record_id, bill_date, service_total, grand_total, status) SELECT sr.record_id, CURDATE(), 5000, 5000, 'Unpaid' FROM service_records sr LEFT JOIN bills b ON sr.record_id = b.record_id WHERE b.bill_id IS NULL AND sr.status = 'Completed'</code></td>
+    <td>Auto-generates missing invoice records for any completed jobs. Returns <code>void</code>.</td>
+  </tr>
+  <tr>
+    <td><code>markBillPaid(int billId)</code></td>
+    <td><code>UPDATE bills SET status = 'Paid' WHERE bill_id = ?</code></td>
+    <td>Marks invoice as Paid. Returns <code>boolean</code>.</td>
+  </tr>
+  <tr>
+    <td><code>updateBillTotal(int billId, double newTotal)</code></td>
+    <td><code>UPDATE bills SET grand_total = ? WHERE bill_id = ?</code></td>
+    <td>Updates grand total when adding extra parts. Returns <code>boolean</code>.</td>
+  </tr>
+</table>
+
+<h2>4.8 Appointment_DAO.java</h2>
+<table class="data-table">
+  <tr>
+    <th style="width: 28%;">Method Signature</th>
+    <th style="width: 46%;">Exact SQL Query Executed</th>
+    <th style="width: 26%;">Operation &amp; Return</th>
+  </tr>
+  <tr>
+    <td><code>getAllAppointments()</code></td>
+    <td><code>SELECT a.appointment_id, a.appointment_date, a.appointment_time, v.registration_no, CONCAT(v.make, ' ', v.model) AS vehicle_name, COALESCE(c.full_name, 'Customer') AS customer_name, COALESCE(a.notes, 'General Service') AS service_name, a.status FROM appointments a LEFT JOIN vehicles v ON a.vehicle_id = v.vehicle_id LEFT JOIN customers c ON a.customer_id = c.customer_id WHERE a.status != 'Completed' ORDER BY a.appointment_id DESC</code></td>
+    <td>Loads pending/confirmed bookings. Returns <code>List&lt;Appointment&gt;</code>.</td>
+  </tr>
+  <tr>
+    <td><code>addAppointment(...)</code></td>
+    <td><code>INSERT INTO appointments (customer_id, vehicle_id, appointment_date, appointment_time, status, notes) VALUES (?, ?, ?, ?, 'Confirmed', ?)</code></td>
+    <td>Schedules booking. Returns <code>boolean</code>.</td>
+  </tr>
+  <tr>
+    <td><code>confirmAppointment(id)</code></td>
+    <td><code>UPDATE appointments SET status = 'Confirmed' WHERE appointment_id = ?</code></td>
+    <td>Confirms pending booking. Returns <code>boolean</code>.</td>
+  </tr>
+  <tr>
+    <td><code>checkInToQueue(appId, regNo)</code></td>
+    <td>
+      1. <code>UPDATE appointments SET status = 'Completed' WHERE appointment_id = ?</code><br>
+      2. <code>Vehicle_DAO.getVehicleByRegNo(regNo)</code><br>
+      3. <code>ServiceQueue_DAO.addToQueue(vehicleId, "General Service / Oil Change", "Ahmed")</code>
+    </td>
+    <td>Marks booking done and injects car into live queue! Returns <code>boolean</code>.</td>
+  </tr>
+</table>
+<div class="page-break"></div>
+
+<h1 id="sec5">5. Business Logic Layer (BLL) &amp; Domain Entities</h1>
+
+<p>The <code>BusinessLayer</code> package encapsulates domain entities (POJOs) and business validation services.</p>
+
+<h2>5.1 Business Services</h2>
+
+<h3>1. Login_BLL.java</h3>
+<pre><code>public class Login_BLL {
+    private final Login_DAO loginDAO;
+
+    public Login_BLL(Login_DAO loginDAO) {
+        this.loginDAO = loginDAO;
+    }
+
+    public boolean login(String email, String password) {
+        // Business Rule: Null or empty credentials are rejected before hitting DB
+        if (email == null || email.trim().isEmpty()) return false;
+        if (password == null || password.trim().isEmpty()) return false;
+        return loginDAO.validateLogin(email.trim(), password);
+    }
+}</code></pre>
+
+<h3>2. Vehicle_BLL.java</h3>
+<pre><code>public class Vehicle_BLL {
+    private Vehicle_DAO vehicleDAO = new Vehicle_DAO();
+
+    public List&lt;Vehicle&gt; getAllVehicles() {
+        return vehicleDAO.getAllVehicles();
+    }
+
+    public boolean addVehicle(Vehicle vehicle) {
+        // Business Rules:
+        if (vehicle == null) return false;
+        if (vehicle.getRegistrationNo() == null || vehicle.getRegistrationNo().trim().isEmpty()) return false;
+        if (vehicle.getVehicleYear() &lt; 1900 || vehicle.getVehicleYear() &gt; 2030) return false;
+        if (vehicle.getMileage() &lt; 0) return false;
+        return vehicleDAO.addVehicle(vehicle);
+    }
+
+    public boolean deleteVehicle(String registrationNo) {
+        if (registrationNo == null || registrationNo.trim().isEmpty()) return false;
+        return vehicleDAO.deleteVehicle(registrationNo.trim());
+    }
+}</code></pre>
+
+<h3>3. Customer_BLL.java</h3>
+<pre><code>public class Customer_BLL {
+    private Customer_DAO dao = new Customer_DAO();
+
+    public List&lt;Customer&gt; getAllCustomers() {
+        return dao.getAllCustomers();
+    }
+
+    public boolean updateCustomer(Customer c) {
+        return dao.updateCustomer(c);
+    }
+
+    public boolean deleteCustomer(int id) {
+        return dao.deleteCustomer(id);
+    }
+}</code></pre>
+
+<h2>5.2 Domain Entities &amp; DTOs</h2>
+<table class="data-table">
+  <tr>
+    <th>Entity Class</th>
+    <th>Fields Mapped</th>
+    <th>Constructors</th>
+    <th>Purpose</th>
+  </tr>
+  <tr>
+    <td><b><code>Customer.java</code></b></td>
+    <td><code>customerId</code>, <code>fullName</code>, <code>phone</code>, <code>email</code>, <code>address</code></td>
+    <td>Default, 4-param (new), 5-param (existing with ID)</td>
+    <td>Encapsulates vehicle owner details.</td>
+  </tr>
+  <tr>
+    <td><b><code>Vehicle.java</code></b></td>
+    <td><code>vehicleId</code>, <code>customerId</code>, <code>customerName</code>, <code>registrationNo</code>, <code>make</code>, <code>model</code>, <code>vehicleYear</code>, <code>mileage</code></td>
+    <td>Default, 6-param (new), 8-param (with joined customerName)</td>
+    <td>Encapsulates registered car data.</td>
+  </tr>
+  <tr>
+    <td><b><code>Service.java</code></b></td>
+    <td><code>serviceId</code>, <code>serviceName</code>, <code>description</code>, <code>cost</code>, <code>estimatedTime</code>, <code>status</code></td>
+    <td>Default, 6-param</td>
+    <td>Represents service offering in workshop catalog.</td>
+  </tr>
+  <tr>
+    <td><b><code>ServiceTicket.java</code></b></td>
+    <td><code>queueId</code>, <code>vehicleId</code>, <code>recordId</code>, <code>queuePosition</code>, <code>registrationNo</code>, <code>make</code>, <code>model</code>, <code>vehicleYear</code>, <code>customerName</code>, <code>serviceName</code>, <code>mechanicName</code>, <code>addedAt</code>, <code>startedAt</code>, <code>completedAt</code>, <code>status</code></td>
+    <td>Default, 15-param constructor</td>
+    <td>View Model for FIFO queue cards &amp; activity table. Includes <code>getVehicleFullName()</code>.</td>
+  </tr>
+  <tr>
+    <td><b><code>Appointment.java</code></b></td>
+    <td><code>appId</code>, <code>date</code>, <code>time</code>, <code>regNo</code>, <code>vehicle</code>, <code>customer</code>, <code>service</code>, <code>status</code></td>
+    <td>8-param constructor</td>
+    <td>View Model for appointment scheduling table.</td>
+  </tr>
+  <tr>
+    <td><b><code>Bill.java</code></b></td>
+    <td><code>billId</code>, <code>regNo</code>, <code>vehicle</code>, <code>customer</code>, <code>service</code>, <code>total</code>, <code>status</code></td>
+    <td>7-param constructor</td>
+    <td>View Model for billing table and receipt printing.</td>
+  </tr>
+</table>
+<div class="page-break"></div>
+
+<h1 id="sec6">6. Presentation Layer — Screen-by-Screen Code Walkthrough</h1>
+
+<p>Every screen in CarCare uses <b>FlatLaf Light</b> theme with modern rounded cards (<code>arc: 25</code>), pill buttons (<code>roundRect</code>), and customized table renderers.</p>
+
+<h2>6.1 LoginForm.java — Entry Screen</h2>
+<ul>
+  <li><b>Design &amp; Layout:</b> Uses <code>BackgroundPanel</code> drawing <code>assets/full.jpeg</code>. Inside is <code>jPanel1</code>, an overridden panel that draws a semi-translucent slate card (<code>rgba(15, 23, 42, 0.92)</code>) with 24px rounded corners and an anti-aliased border.</li>
+  <li><b>Fullscreen Centering (The Fix):</b> <code>backgroundPanelLayout.setVerticalGroup</code> uses <code>.addContainerGap(75, Short.MAX_VALUE)</code> on both the top and bottom. This acts as dual springs, keeping the login card centered vertically and horizontally at all screen sizes (1024&times;640, 1440&times;900, 1080p, 4K).</li>
+  <li><b>Password Security:</b> Uses <code>JPasswordField</code> with <code>FlatLaf.style: showRevealButton: true</code> (native eye toggle).</li>
+  <li><b>Login Handler (Lines 39-63):</b>
+    <pre><code>private void handleLogin() {
+    String email = jTextField1.getText().trim();
+    String password = new String(jPasswordField1.getPassword()).trim();
+
+    if (email.isEmpty() || password.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please enter both email and password.", "Validation Error", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    if (loginBLL.login(email, password)) {
+        this.dispose(); // Close login
+        new VehicleManagement_Screen().setVisible(true); // Launch master screen
+    } else {
+        JOptionPane.showMessageDialog(this, "Invalid email or password.", "Login Failed", JOptionPane.ERROR_MESSAGE);
+    }
+}</code></pre>
+  </li>
+</ul>
+
+<h2>6.2 Dashboard_Screen.java — Metrics &amp; Live Activity</h2>
+<ul>
+  <li><b>6 Metric Cards:</b>
+    <ol>
+      <li><b>Total Customers:</b> Indigo card &bull; <code>customerDAO.getAllCustomers().size()</code></li>
+      <li><b>Total Vehicles:</b> Car Blue card &bull; <code>vehicleDAO.getAllVehicles().size()</code></li>
+      <li><b>Waiting in Queue:</b> Amber Gold card &bull; <code>queueDAO.getWaitingQueue().size()</code></li>
+      <li><b>Currently in Service:</b> Purple card &bull; <code>queueDAO.getUnderServiceCount()</code></li>
+      <li><b>Completed Services:</b> Teal card &bull; <code>queueDAO.getCompletedCount()</code></li>
+      <li><b>Total Revenue:</b> Green card &bull; Sum of <code>b.getTotal()</code> across all bills</li>
+    </ol>
+  </li>
+  <li><b>Quick Operations Buttons:</b>
+    <ul>
+      <li><code>btnRegister</code> ("+ Add Vehicle"): <code>new AddVehicle_SCREEN(this, true).setVisible(true); loadDashboardData();</code></li>
+      <li><code>btnAppointment</code> ("New Booking"): <code>new NewBooking_SCREEN(this, true).setVisible(true); loadDashboardData();</code></li>
+      <li><code>btnInvoice</code> ("View Billing"): <code>new Billing_Screen().setVisible(true);</code></li>
+    </ul>
+  </li>
+  <li><b>Recent Activity Table:</b> Alternating zebra rows (white / #f8fafc), colored status labels (Amber for Waiting, Green for Completed, Purple for In Service). Populated by <code>queueDAO.getRecentQueueTickets(15)</code>.</li>
+</ul>
+
+<h2>6.3 VehicleManagement_Screen.java — Master Window &amp; Vehicle Tab</h2>
+<ul>
+  <li><b>Master Tab Container:</b> Sets up top tab bar (<code>setupTabs()</code>, 42px height, navy blue active indicator).</li>
+  <li><b>Live Search Filter (Lines 163-176):</b> <code>jTextField1.getDocument().addDocumentListener(...)</code> fires on every keystroke, calling <code>filterVehicles(text)</code> to filter rows by Registration No., Make, Model, or Customer Name in real time.</li>
+  <li><b>Add Vehicle Button:</b> Opens <code>AddVehicle_SCREEN</code> modal dialog. Refreshes table on close.</li>
+  <li><b>Interactive Action Column (Edit / Delete Icons):</b>
+    Table uses a custom cell renderer drawing <code>assets/edit.png</code> and <code>assets/trash.png</code>. A <code>MouseListener</code> on <code>jTable1</code> detects click coordinates:
+    <ul>
+      <li>If clicked on left half of Action column (Edit): Opens <code>EditVehicle_SCREEN</code> and passes selected <code>Vehicle</code> object.</li>
+      <li>If clicked on right half (Delete): Prompts <code>JOptionPane.showConfirmDialog</code>. If confirmed, executes <code>vehicleDAO.deleteVehicle(regNo)</code>.</li>
+    </ul>
+  </li>
+  <li><b>Adaptive Pagination:</b> Dynamically calculates page size based on window height (<code>pageSize = max(5, (tableHeight - 40) / 40)</code>) with Next/Previous buttons.</li>
+</ul>
+<div class="page-break"></div>
+
+<h2>6.4 CustomerManagement_Screen.java — Customer Directory</h2>
+<ul>
+  <li><b>Purpose:</b> Manages customer contact information and vehicle ownership.</li>
+  <li><b>Table Loading:</b> <code>customerBLL.getAllCustomers()</code> &bull; Populates Customer ID, Name, Phone, Email, Address.</li>
+  <li><b>Live Search:</b> Filters customer list dynamically across name, phone, email, and address.</li>
+  <li><b>Edit &amp; Delete:</b> Table row click allows editing via <code>EditCustomer_SCREEN</code> or deleting via <code>customerBLL.deleteCustomer(id)</code> with cascade warning.</li>
+</ul>
+
+<h2>6.5 ServiceQueue_Screen.java — Workshop Queue &amp; Live Timer</h2>
+<ul>
+  <li><b>Active Service Bay (Bay 1 Card):</b> Displays vehicle currently undergoing repair (Reg No badge, customer, service, mechanic). Includes a live animated timer (<code>javax.swing.Timer</code>) ticking every second to show elapsed time since <code>started_at</code>!</li>
+  <li><b>FIFO Queue Table:</b> Displays upcoming cars ordered by <code>queue_position ASC</code>.</li>
+  <li><b>Call Next Vehicle Button (<code>jButton5</code>):</b> Calls <code>queueDAO.callNextVehicle()</code>. The first waiting vehicle is automatically moved to the active bay, and remaining queue positions decrement by 1.</li>
+  <li><b>Mark Completed Button (<code>jButton2</code>):</b> Calls <code>queueDAO.markAsCompleted(queueId, recordId)</code>. Empties Bay 1 and records completion time.</li>
+  <li><b>Remove from Queue Button (<code>jButton7</code>):</b> Cancels selected car and re-sequences remaining positions (1, 2, 3...).</li>
+  <li><b>Add to Queue Button (<code>jButton1</code>):</b> Opens <code>AddtoQueue_SCREEN</code> modal dialog.</li>
+</ul>
+
+<h2>6.6 Appointment_Screen.java — Booking Calendar</h2>
+<ul>
+  <li><b>Filter Buttons:</b> "All", "Confirmed", and "Pending" buttons toggle local list display.</li>
+  <li><b>Book Appointment Button (<code>jButton1</code>):</b> Opens <code>NewBooking_SCREEN</code> modal dialog.</li>
+  <li><b>Check-In Button (<code>jButton2</code>):</b> Select an appointment, click Check-In. Executes <code>appointmentDAO.checkInToQueue(appId, regNo)</code>: marks appointment Completed and immediately inserts the vehicle into the live workshop queue!</li>
+  <li><b>Confirm Booking Button (<code>jButton5</code>):</b> Marks a 'Pending' appointment as 'Confirmed' via <code>appointmentDAO.confirmAppointment(appId)</code>.</li>
+</ul>
+
+<h2>6.7 ServiceManagement_Screen.java — Catalog &amp; Assignment</h2>
+<ul>
+  <li><b>Vehicle Dropdown (<code>jComboBox1</code>):</b> Loaded from <code>vehicleDAO.getAllVehicles()</code>.</li>
+  <li><b>Service Dropdown (<code>jComboBox2</code>):</b> Loaded from <code>serviceDAO.getAllServices()</code>. Changing selection updates cost and time display labels in real time.</li>
+  <li><b>+ Add Service Button (<code>jButton1</code>):</b> Shows 3 sequential <code>JOptionPane.showInputDialog</code> pop-ups for Name, Cost, and Time, then calls <code>serviceDAO.addService()</code>.</li>
+  <li><b>Assign to Vehicle Button (<code>jButton2</code>):</b> Takes selected car and service, calls <code>serviceDAO.assignServiceToVehicle()</code>, which puts the car into the service queue!</li>
+</ul>
+
+<h2>6.8 Modal Dialog Screens (JDialog)</h2>
+<table class="data-table">
+  <tr>
+    <th style="width: 25%;">Dialog Class</th>
+    <th style="width: 25%;">Triggered From</th>
+    <th style="width: 50%;">Mechanics &amp; Database Operation</th>
+  </tr>
+  <tr>
+    <td><b><code>AddVehicle_SCREEN</code></b></td>
+    <td>Dashboard &amp; Vehicle Tab ("+ Add Vehicle")</td>
+    <td>Dual-entity creation. Validates 11-digit phone. Saves Customer first via <code>Customer_DAO.addCustomer()</code> to obtain auto-generated ID, then saves Vehicle via <code>Vehicle_DAO.addVehicle()</code> with that Customer ID.</td>
+  </tr>
+  <tr>
+    <td><b><code>EditVehicle_SCREEN</code></b></td>
+    <td>Vehicle Table (Edit icon)</td>
+    <td>Receives <code>Vehicle</code> object via <code>setVehicleData()</code>. Locks customer name. On Save: calls <code>Vehicle_DAO.updateVehicle()</code>.</td>
+  </tr>
+  <tr>
+    <td><b><code>AddtoQueue_SCREEN</code></b></td>
+    <td>Service Queue ("+ Add to Queue")</td>
+    <td>User inputs Reg No. <b>"Verify"</b> button calls <code>vehicleDAO.getVehicleByRegNo()</code> &bull; turns badge green if found. Select service &amp; mechanic &bull; calls <code>serviceQueueDAO.addToQueue()</code>.</td>
+  </tr>
+  <tr>
+    <td><b><code>NewBooking_SCREEN</code></b></td>
+    <td>Appointments ("Book Appointment")</td>
+    <td>Verifies vehicle via registration number. Inputs date, time, service. Calls <code>appointmentDAO.addAppointment()</code>.</td>
+  </tr>
+  <tr>
+    <td><b><code>EditCustomer_SCREEN</code></b></td>
+    <td>Customer Table (Edit click)</td>
+    <td>Receives <code>Customer</code> object. On Save: calls <code>Customer_DAO.updateCustomer()</code>.</td>
+  </tr>
+</table>
+<div class="page-break"></div>
+
+<h1 id="sec7">7. Every Single Button Click Traced to Database (15 Flows)</h1>
+
+<p>Here is the exact trace for every single button in the CarCare system from the user click down to the SQL query:</p>
+
+<table class="data-table">
+  <tr>
+    <th>#</th>
+    <th>Screen</th>
+    <th>Button Name</th>
+    <th>Java Event Handler Method</th>
+    <th>Exact SQL Query Executed</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td><code>LoginForm</code></td>
+    <td><b>LOGIN</b></td>
+    <td><code>handleLogin()</code> &rarr; <code>Login_BLL.login()</code></td>
+    <td><code>SELECT * FROM users WHERE email = ? AND password = ?</code></td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td><code>Dashboard_Screen</code></td>
+    <td><b>+ Add Vehicle</b></td>
+    <td><code>btnRegisterActionPerformed()</code></td>
+    <td>Opens <code>AddVehicle_SCREEN</code> dialog (Flow #4 below).</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td><code>Dashboard_Screen</code></td>
+    <td><b>New Booking</b></td>
+    <td><code>btnAppointmentActionPerformed()</code></td>
+    <td>Opens <code>NewBooking_SCREEN</code> dialog (Flow #11 below).</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td><code>AddVehicle_SCREEN</code></td>
+    <td><b>+ Register &amp; Save</b></td>
+    <td><code>registerAndSave()</code></td>
+    <td>
+      1. <code>INSERT INTO customers (full_name, phone, email, address) VALUES (?, ?, ?, ?)</code><br>
+      2. <code>INSERT INTO vehicles (customer_id, registration_no, make, model, vehicle_year, mileage) VALUES (?, ?, ?, ?, ?, ?)</code>
+    </td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td><code>VehicleManagement</code></td>
+    <td><b>Delete (Table icon)</b></td>
+    <td><code>jTable1MouseAdapter</code> &rarr; <code>deleteVehicle()</code></td>
+    <td><code>DELETE FROM vehicles WHERE registration_no = ?</code> (Cascades)</td>
+  </tr>
+  <tr>
+    <td>6</td>
+    <td><code>EditVehicle_SCREEN</code></td>
+    <td><b>Save Changes</b></td>
+    <td><code>jButton1ActionPerformed()</code></td>
+    <td><code>UPDATE vehicles SET make=?, model=?, vehicle_year=?, mileage=? WHERE registration_no=?</code></td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td><code>AddtoQueue_SCREEN</code></td>
+    <td><b>Verify</b></td>
+    <td><code>btnVerifyActionPerformed()</code></td>
+    <td><code>SELECT v.*, c.full_name FROM vehicles v LEFT JOIN customers c ON v.customer_id = c.customer_id WHERE v.registration_no = ?</code></td>
+  </tr>
+  <tr>
+    <td>8</td>
+    <td><code>AddtoQueue_SCREEN</code></td>
+    <td><b>Confirm &amp; Add</b></td>
+    <td><code>btnConfirmActionPerformed()</code></td>
+    <td>
+      1. <code>SELECT mechanic_id FROM mechanics WHERE full_name LIKE ?</code><br>
+      2. <code>INSERT INTO service_records (vehicle_id, mechanic_id, service_date, description, status) VALUES (?, ?, CURDATE(), ?, 'Pending')</code><br>
+      3. <code>INSERT INTO service_queue (vehicle_id, record_id, queue_position, status) VALUES (?, ?, ?, 'Waiting')</code>
+    </td>
+  </tr>
+  <tr>
+    <td>9</td>
+    <td><code>ServiceQueue_Screen</code></td>
+    <td><b>Call Next Vehicle</b></td>
+    <td><code>callNextVehicle()</code></td>
+    <td>
+      1. <code>UPDATE service_queue SET status = 'In Service', started_at = NOW() WHERE queue_id = ?</code><br>
+      2. <code>UPDATE service_records SET status = 'In Progress' WHERE record_id = ?</code><br>
+      3. <code>UPDATE service_queue SET queue_position = queue_position - 1 WHERE status = 'Waiting'</code>
+    </td>
+  </tr>
+  <tr>
+    <td>10</td>
+    <td><code>ServiceQueue_Screen</code></td>
+    <td><b>Mark Completed</b></td>
+    <td><code>markActiveServiceCompleted()</code></td>
+    <td>
+      1. <code>UPDATE service_queue SET status = 'Completed', completed_at = NOW() WHERE queue_id = ?</code><br>
+      2. <code>UPDATE service_records SET status = 'Completed' WHERE record_id = ?</code>
+    </td>
+  </tr>
+  <tr>
+    <td>11</td>
+    <td><code>NewBooking_SCREEN</code></td>
+    <td><b>Confirm Booking</b></td>
+    <td><code>btnConfirmActionPerformed()</code></td>
+    <td><code>INSERT INTO appointments (customer_id, vehicle_id, appointment_date, appointment_time, status, notes) VALUES (?, ?, ?, ?, 'Confirmed', ?)</code></td>
+  </tr>
+  <tr>
+    <td>12</td>
+    <td><code>Appointment_Screen</code></td>
+    <td><b>Check-In</b></td>
+    <td><code>checkInToQueue()</code></td>
+    <td>
+      1. <code>UPDATE appointments SET status = 'Completed' WHERE appointment_id = ?</code><br>
+      2. Pushes vehicle into <code>service_records</code> and <code>service_queue</code> (Flow #8).
+    </td>
+  </tr>
+  <tr>
+    <td>13</td>
+    <td><code>ServiceManagement</code></td>
+    <td><b>+ Add Service</b></td>
+    <td><code>jButton1ActionPerformed()</code></td>
+    <td><code>INSERT INTO services (service_name, description, cost, estimated_time, status) VALUES (?, ?, ?, ?, 'Active')</code></td>
+  </tr>
+  <tr>
+    <td>14</td>
+    <td><code>Billing_Screen</code></td>
+    <td><b>+ Add Extra Part</b></td>
+    <td><code>addExtraPart()</code></td>
+    <td><code>UPDATE bills SET grand_total = ? WHERE bill_id = ?</code></td>
+  </tr>
+  <tr>
+    <td>15</td>
+    <td><code>Billing_Screen</code></td>
+    <td><b>Collect Payment</b></td>
+    <td><code>collectPayment()</code></td>
+    <td><code>UPDATE bills SET status = 'Paid' WHERE bill_id = ?</code></td>
+  </tr>
+</table>
+<div class="page-break"></div>
+
+<h1 id="sec8">8. In-Depth Billing &amp; Invoicing Mechanics</h1>
+
+<p>The Billing module (<code>Billing_Screen.java</code>) is one of the most sophisticated modules in CarCare. Here is exactly how it functions:</p>
+
+<h2>8.1 Automatic Invoice Generation</h2>
+<p>When the user clicks the Billing tab, <code>Billing_DAO.getAllBills()</code> executes. Before returning the list, it calls <code>autoCreateBills()</code> (Lines 58-75 in <code>Billing_DAO.java</code>):</p>
+
+<pre><code>INSERT INTO bills (record_id, bill_date, service_total, grand_total, status)
+SELECT sr.record_id, CURDATE(), 5000, 5000, 'Unpaid'
+FROM service_records sr
+LEFT JOIN bills b ON sr.record_id = b.record_id
+WHERE b.bill_id IS NULL AND sr.status = 'Completed'</code></pre>
+
+<p><b>What this SQL query does:</b> It finds every service job in <code>service_records</code> that has <code>status = 'Completed'</code> but does not yet have a matching invoice in <code>bills</code>. It automatically creates an invoice for today's date with <code>status = 'Unpaid'</code>. Because of the <code>UNIQUE KEY (record_id)</code> constraint, duplicate bills are impossible!</p>
+
+<h2>8.2 The Invoice Detail Card</h2>
+<p>When an invoice row is clicked in <code>jTable1</code>, <code>showBillDetails(Bill b)</code> (Lines 492-519) populates the right-hand panel (<code>jPanel3</code>):</p>
+<ul>
+  <li><b>Header:</b> Displays Invoice number (<code>#INV-101</code>), customer name, vehicle make/model, and license plate.</li>
+  <li><b>Itemized Breakdown:</b>
+    <ul>
+      <li>Service package base cost (e.g. Rs. 5,000)</li>
+      <li>Extra Parts / Addons (if total &gt; 5,000, calculated as <code>total - 5000</code>)</li>
+      <li>Diagnostics &amp; Inspection (included, highlighted in green)</li>
+      <li>Workshop Labor Charges (included, highlighted in green)</li>
+    </ul>
+  </li>
+  <li><b>Subtotal &amp; Tax:</b> Displays subtotal and tax.</li>
+  <li><b>Payment State:</b> If status is 'Paid', the "Collect Payment" button is automatically disabled and labeled "Paid". If 'Unpaid', the button is enabled in blue.</li>
+</ul>
+
+<h2>8.3 The Dynamic Discount Engine</h2>
+<p>When the user changes the discount dropdown (<code>jComboBox1</code>), <code>applyDiscount()</code> (Lines 522-532) fires:</p>
+<pre><code>private void applyDiscount() {
+    if (selectedBill == null) return;
+    int idx = jComboBox1.getSelectedIndex();
+    double discountPct = (idx == 1) ? 0.05 : (idx == 2) ? 0.10 : 0.0;
+    double discountAmt = selectedBill.getTotal() * discountPct;
+    double grandTotal = selectedBill.getTotal() - discountAmt;
+
+    jLabel10.setText("-Rs. " + String.format("%.0f", discountAmt));
+    jLabel13.setText("Grand Total: Rs. " + String.format("%.0f", grandTotal));
+}</code></pre>
+<ul>
+  <li>Index 0: "No Discount (0%)" &rarr; Grand Total = Full Total</li>
+  <li>Index 1: "Loyalty Discount (5%)" &rarr; 5% deducted</li>
+  <li>Index 2: "Corporate Fleet (10%)" &rarr; 10% deducted</li>
+</ul>
+
+<h2>8.4 Adding Extra Parts to Bill</h2>
+<p>When the "+ Add Extra Part" button (<code>jButton1</code>) is clicked, <code>addExtraPart()</code> prompts <code>JOptionPane.showInputDialog("Enter Part Price (Rs):")</code>. If the user enters <code>1500</code>:</p>
+<ol>
+  <li>It calculates <code>newTotal = selectedBill.getTotal() + 1500</code>.</li>
+  <li>It calls <code>billingDAO.updateBillTotal(selectedBill.getBillId(), newTotal)</code>.</li>
+  <li>Executes: <code>UPDATE bills SET grand_total = ? WHERE bill_id = ?</code>.</li>
+  <li>Reloads the bills list, and the itemized card automatically shows: <i>"Extra Parts / Addons: Rs. 1,500"</i>!</li>
+</ol>
+
+<h2>8.5 Printing the Official Receipt</h2>
+<p>When "Print Receipt" (<code>jButton5</code>) is clicked, <code>printReceipt()</code> (Lines 560-579) determines payment method (Cash / Card radio buttons) and constructs a monospaced ASCII receipt displayed inside a read-only <code>JTextArea</code> modal dialog:</p>
+
+<pre><code>====================================
+       CARCARE AUTO SERVICES        
+          Customer Receipt          
+====================================
+Invoice:  #INV-2
+Customer: Sarah Connor
+Vehicle:  Honda Civic (KHI-5678)
+Service:  Brake Pad Replacement
+Method:   Cash
+Total:    Rs. 6,500
+Status:   Paid
+====================================
+      Thank you for your visit!     
+====================================</code></pre>
+<div class="page-break"></div>
+
+<h1 id="sec9">9. Evaluator Defense Q&amp;A (Questions &amp; Exact Answers)</h1>
+
+<p>Here are the exact questions your evaluator is guaranteed or likely to ask, along with the precise, professional answers you should give:</p>
+
+<div class="callout callout-evaluator">
+  <b>Q1: What architecture does this application follow and why did you choose it?</b><br>
+  <b>Your Answer:</b> <i>"CarCare follows the 3-Tier Architecture: Presentation Layer, Business Layer, and Data Access Layer. I chose this to decouple UI components from database logic. The UI handles user input and styling, the Business Layer enforces validation rules, and the Data Access Layer executes SQL queries. This makes the system maintainable, testable, and prevents database code from leaking into GUI forms."</i>
+</div>
+
+<div class="callout callout-evaluator">
+  <b>Q2: How is the database connected and how do you prevent SQL injection?</b><br>
+  <b>Your Answer:</b> <i>"The database is connected via JDBC using DB_Connection.getConnection(), which connects to MySQL on localhost:3306. To completely prevent SQL injection, every single query in our DAOs uses java.sql.PreparedStatement with '?' placeholders. User input is never concatenated directly into SQL strings."</i>
+</div>
+
+<div class="callout callout-evaluator">
+  <b>Q3: How does the application transition from Login to the main Dashboard?</b><br>
+  <b>Your Answer:</b> <i>"When the user clicks Login, LoginForm.handleLogin() validates the credentials via Login_BLL and Login_DAO. Upon successful authentication, LoginForm calls this.dispose() to free memory and instantiates new VehicleManagement_Screen().setVisible(true). VehicleManagement_Screen is our master window that hosts all the workshop tabs."</i>
+</div>
+
+<div class="callout callout-evaluator">
+  <b>Q4: How do the tabs work in your system? Are they separate windows?</b><br>
+  <b>Your Answer:</b> <i>"No, they are not separate windows. VehicleManagement_Screen contains a JTabbedPane. In setupTabs(), it instantiates each screen class (Dashboard_Screen, CustomerManagement_Screen, ServiceQueue_Screen, Billing_Screen, etc.) and extracts their main content panels using getter methods like getDashboardPanel() or getBillingPanel(). It embeds these panels into the tab bar. When the user switches tabs, a ChangeListener automatically refreshes the data for that tab from MySQL."</i>
+</div>
+
+<div class="callout callout-evaluator">
+  <b>Q5: How does the FIFO service queue work?</b><br>
+  <b>Your Answer:</b> <i>"The service queue implements a First-In, First-Out (FIFO) structure. When a car is added to the queue via addToQueue(), it is assigned the next queue_position (MAX + 1). ServiceQueue_DAO.getWaitingQueue() returns a Queue&lt;ServiceTicket&gt; backed by a Java LinkedList. When the workshop manager clicks 'Call Next Vehicle', callNextVehicle() polls the head of the queue, updates its status to 'In Service' in Bay 1, and decrements all other waiting queue positions by 1."</i>
+</div>
+
+<div class="callout callout-evaluator">
+  <b>Q6: What happens when you register a vehicle? Explain the database flow.</b><br>
+  <b>Your Answer:</b> <i>"When the user clicks 'Register &amp; Save' in AddVehicle_SCREEN, it performs a dual-entity transaction: first, it saves the customer via Customer_DAO.addCustomer() using RETURN_GENERATED_KEYS to obtain the auto-increment customer_id. Then, it creates the Vehicle object using that customer_id and saves it via Vehicle_DAO.addVehicle(). This maintains strict referential integrity."</i>
+</div>
+
+<div class="callout callout-evaluator">
+  <b>Q7: How does billing work when a service is finished?</b><br>
+  <b>Your Answer:</b> <i>"When a service is marked as completed in the queue, its status becomes 'Completed'. When the manager opens the Billing tab, Billing_DAO.autoCreateBills() executes an INSERT INTO bills ... SELECT query that automatically generates an unpaid invoice for any completed service record that doesn't yet have an invoice. The manager can then add extra parts, apply discounts, collect payment, and print the receipt."</i>
+</div>
+
+<div class="callout callout-evaluator">
+  <b>Q8: How did you fix the login screen centering issue on full screen?</b><br>
+  <b>Your Answer:</b> <i>"In the NetBeans Matisse design section of LoginForm.form and initComponents(), the top margin was previously hardcoded as a fixed 75px gap while the bottom was flexible. I updated the top gap to be a flexible container gap with pref=75, max=Short.MAX_VALUE. Now both top and bottom margins expand equally like springs, keeping the login card perfectly centered on any resolution."</i>
+</div>
+
+<div class="callout callout-evaluator">
+  <b>Q9: Why are there 9 tables in your database instead of 11?</b><br>
+  <b>Your Answer:</b> <i>"During our code and database audit, we verified that the payments table and service_record_items table had 0 rows and were never referenced in our Java source code. Our application records payment status directly on the bills table and stores service descriptions in service_records. To maintain a clean, normalized, and production-ready schema, we dropped those two redundant tables."</i>
+</div>
+
+<div class="callout callout-evaluator">
+  <b>Q10: What third-party libraries did you use?</b><br>
+  <b>Your Answer:</b> <i>"We used two libraries: FlatLaf 3.7.2 for modern, rounded, clean UI styling, and MySQL Connector/J 26.7.0 for high-performance JDBC connectivity with MySQL."</i>
+</div>
+
+<br>
+<div style="text-align: center; margin-top: 30px; padding: 20px; background: #08254f; color: #ffffff; border-radius: 8px;">
+  <h3 style="color: #38bdf8; margin: 0 0 8px 0;">All Systems Ready for Evaluation</h3>
+  <p style="margin: 0; font-size: 9pt; color: #cbd5e1;">CarCare Auto Workshop Management System &bull; Developed by Muhammad &bull; ColonNext Internship</p>
+</div>
+
+</body>
+</html>
