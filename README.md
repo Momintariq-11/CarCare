@@ -106,4 +106,4 @@ java -cp "build/classes:lib/flatlaf-3.7.2.jar:lib/mysql-connector-j-26.7.0.jar" 
 
 **Muhammad**  
 - GitHub: [@Momintariq-11](https://github.com/Momintariq-11)  
-- Completed as part of Software Engineering Internship at **ColonNext**.
+- Completed as part of Software Engineering Internship at **KolonX**.
